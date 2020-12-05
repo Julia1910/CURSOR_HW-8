@@ -8,7 +8,7 @@ public class HW8 {
 
     public static void main(String[] args) {
         List<Car> cars = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             cars.add(Generator.generateCar());
         }
 
@@ -25,9 +25,9 @@ public class HW8 {
 
         }
 
-        int price = filterCars.get(filterCars.size() - 3).getPrice();
         Map<UUID, Car> cheaperCars = filterCars.stream()
-                .filter(car -> car.getPrice() <= price)
+                .sorted(Comparator.comparing(Car::getPrice))
+                .limit(3)
                 .collect(Collectors.toMap(Car::getId, car -> car));
 
         System.out.println("\nMap with three cheaper cars: ");
